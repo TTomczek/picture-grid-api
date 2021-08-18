@@ -1,0 +1,157 @@
+openapi: "3.0.0"
+info:
+  title: "Picture-Grid API"
+  version: ""
+  description: "REST API for the communication between the Picture-Grid server and client"
+
+paths:
+  /picture:
+    get:
+      summary: Get all pictures
+      tags:
+        - Picture
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PictureDescriptionDTO'
+
+    post:
+      summary: Create a picture
+      tags:
+        - Picture
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PictureTemplateDTO'
+      responses:
+        201:
+          description: 'Created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PictureDescriptionDTO'
+        
+  /picture/{id}:
+    get:
+      summary: Get the picture with the given id
+      tags:
+        - Picture
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the picture to download.
+          schema:
+            type: string
+            format: uuid
+            minimum: 1
+      responses:
+        200:
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PictureDescriptionDTO'
+        404:
+          description: Not found
+
+    put:
+      summary: Update the picture with the given id
+      tags:
+        - Picture
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the picture to download.
+          schema:
+            type: string
+            format: uuid
+            minimum: 1
+      requestBody:
+        $ref: '#/components/schemas/PictureTemplateDTO'
+      responses:
+        204:
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PictureDescriptionDTO'
+        404:
+          description: Item to update not found
+
+    delete:
+      summary: Deletes the picture with the given id
+      tags:
+        - Picture
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the picture to delete.
+          schema:
+            type: string
+            format: uuid
+            minimum: 1
+      responses:
+        204:
+          description: 'Succesfully deleted'
+        404:
+          description: 'Not found'
+
+  /picture/file/{id}:
+    get:
+      summary: Download the picture with the given id
+      tags:
+        - Picture
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the picture to download.
+          schema:
+            type: string
+            format: uuid
+            minimum: 1
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/PictureDTO'
+
+components:
+  schemas:
+    PictureDescriptionDTO:
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+    PictureDTO:
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        picture:
+          type: string
+          format: binary
+    PictureTemplateDTO:
+      properties:
+        description:
+          type: string
+        picture:
+          type: string
+          format: binary
