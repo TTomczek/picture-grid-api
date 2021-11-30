@@ -1,0 +1,9 @@
+{
+  "providedIn": "root",
+  "ngVersion": "12.0.0",
+  "npmName": "picture-grid-api-angular-client",
+  "npmVersion": "1.0.0-SNAPSHOT",
+  "fileNaming": "kebab-case",
+  "apiModulePrefix": "Api",
+  "supportsES6": "true"
+}

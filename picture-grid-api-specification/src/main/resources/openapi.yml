@@ -1,12 +1,19 @@
 openapi: "3.0.0"
 info:
   title: "Picture-Grid API"
-  version: ""
+  version: "1.0.0"
   description: "REST API for the communication between the Picture-Grid server and client"
+
+servers:
+  - url: http://localhost:8080
+    description: Local
+  - url: /picture-grid-server/api
+    description: Containerized
 
 paths:
   /picture:
     get:
+      operationId: getPictures
       summary: Get all pictures
       tags:
         - Picture
@@ -21,6 +28,7 @@ paths:
                   $ref: '#/components/schemas/PictureDescriptionDTO'
 
     post:
+      operationId: createPicture
       summary: Create a picture
       tags:
         - Picture
@@ -39,6 +47,7 @@ paths:
         
   /picture/{id}:
     get:
+      operationId: getPicture
       summary: Get the picture with the given id
       tags:
         - Picture
@@ -62,7 +71,8 @@ paths:
           description: Not found
 
     put:
-      summary: Update the picture with the given id
+      operationId: updatePictureDescription
+      summary: Update the picture description with the given id
       tags:
         - Picture
       parameters:
@@ -75,7 +85,10 @@ paths:
             format: uuid
             minimum: 1
       requestBody:
-        $ref: '#/components/schemas/PictureTemplateDTO'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PictureDescriptionDTO'
       responses:
         204:
           description: Updated successfully
@@ -87,6 +100,7 @@ paths:
           description: Item to update not found
 
     delete:
+      operationId: deletePicture
       summary: Deletes the picture with the given id
       tags:
         - Picture
@@ -107,6 +121,7 @@ paths:
 
   /picture/file/{id}:
     get:
+      operationId: downloadPicture
       summary: Download the picture with the given id
       tags:
         - Picture
@@ -126,6 +141,27 @@ paths:
             application/json:
               schema:
                $ref: '#/components/schemas/PictureDTO'
+    put:
+      operationId: updatePicture
+      summary: Update picture file with the given id
+      tags:
+        - Picture
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the picture to download.
+          schema:
+            type: string
+            format: uuid
+            minimum: 1
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PictureDTO'
 
 components:
   schemas:
@@ -136,7 +172,11 @@ components:
         id:
           type: string
           format: uuid
+        title:
+          type: string
         description:
+          type: string
+        link:
           type: string
     PictureDTO:
       required:
@@ -150,7 +190,11 @@ components:
           format: binary
     PictureTemplateDTO:
       properties:
+        title:
+          type: string
         description:
+          type: string
+        link:
           type: string
         picture:
           type: string

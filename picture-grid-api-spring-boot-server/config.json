@@ -1,0 +1,32 @@
+{
+  "generatorName": "java",
+  "library": "spring-boot",
+  "delegatePattern": "true",
+
+  "basePackage": "de.tomczek.picture.grid.api.spring.boot.server",
+  "apiPackage": "de.tomczek.picture.grid.api.spring.boot.server.api",
+  "configPackage": "de.tomczek.picture.grid.api.spring.boot.server.config",
+  "invokerPackage": "de.tomczek.picture.grid.api.spring.boot.server.invoker",
+  "modelPackage": "de.tomczek.picture.grid.api.spring.boot.server.model",
+
+  "parentGroupId": "de.tomczek.picture.grid",
+  "parentArtifactId": "picture-grid-api",
+  "parentVersion": "${project.version}",
+
+  "groupId": "de.tomczek.picture-grid",
+  "artifactId": "${project.artifactId}",
+  "artifactVersion": "${project.version}",
+
+  "dateLibrary": "java8",
+
+  "serializableModel": "true",
+
+  "sortModelPropertiesByRequiredFlag": "true",
+  "sortParamsByRequiredFlag": "true",
+
+  "sourceFolder": "src/main/java",
+  "hideGenerationTimestamp": "true",
+  "generateApiDocumentation": "false",
+  "generateApiTests": "false",
+  "generateModelTest": "false"
+}
