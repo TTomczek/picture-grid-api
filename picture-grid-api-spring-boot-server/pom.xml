@@ -7,7 +7,7 @@
     <artifactId>picture-grid-api-spring-boot-server</artifactId>
 
     <parent>
-        <groupId>de.tomczek.picture.grid</groupId>
+        <groupId>de.ttomczek.picture.grid</groupId>
         <artifactId>picture-grid-api</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
